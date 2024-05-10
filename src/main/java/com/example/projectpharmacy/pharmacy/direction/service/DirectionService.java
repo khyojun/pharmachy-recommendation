@@ -1,7 +1,9 @@
 package com.example.projectpharmacy.pharmacy.direction.service;
 
 import com.example.projectpharmacy.api.dto.DocumentDto;
+import com.example.projectpharmacy.api.service.KakaoCategorySearchService;
 import com.example.projectpharmacy.pharmacy.direction.entity.Direction;
+import com.example.projectpharmacy.pharmacy.direction.repository.DirectionRepository;
 import com.example.projectpharmacy.pharmacy.service.PharmacySearchService;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -22,6 +26,14 @@ public class DirectionService {
 
 
     private final PharmacySearchService pharmacySearchService;
+    private final DirectionRepository directionRepository;
+    private final KakaoCategorySearchService kakaoCategorySearchService;
+
+    @Transactional
+    public List<Direction> saveAll(List<Direction> directionList){
+        if(CollectionUtils.isEmpty(directionList)) return Collections.emptyList();
+        return directionRepository.saveAll(directionList);
+    }
 
     public List<Direction> buildDirectionList(DocumentDto documentDto){
 
@@ -48,6 +60,28 @@ public class DirectionService {
         ;
 
     }
+
+    public List<Direction> buildDirectionListByCategoryApi(DocumentDto inputDocumentDto){
+        if(Objects.isNull(inputDocumentDto)) return Collections.emptyList();
+
+        return kakaoCategorySearchService.requestPharmacyCategorySearch(inputDocumentDto.getLatitude(),
+            inputDocumentDto.getLongitude(),
+            RADIUS_KM)
+            .getDocumentDtoList()
+            .stream().map(resultDocumentDto ->
+                Direction.builder()
+                    .inputAddress(inputDocumentDto.getAddressName())
+                    .inputLatitude(inputDocumentDto.getLatitude())
+                    .inputLongitude(inputDocumentDto.getLongitude())
+                    .targetPharmacyName(resultDocumentDto.getPlaceName())
+                    .targetLatitude(resultDocumentDto.getLatitude())
+                    .targetLongitude(resultDocumentDto.getLongitude())
+                    .distance(resultDocumentDto.getDistance())
+                    .build())
+            .limit(MAX_SEARCH_COUNT)
+            .collect(Collectors.toList());
+    }
+
 
     //Haversine formula
 
