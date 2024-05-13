@@ -74,9 +74,10 @@ public class DirectionService {
                     .inputLatitude(inputDocumentDto.getLatitude())
                     .inputLongitude(inputDocumentDto.getLongitude())
                     .targetPharmacyName(resultDocumentDto.getPlaceName())
+                    .targetAddress(resultDocumentDto.getAddressName())
                     .targetLatitude(resultDocumentDto.getLatitude())
                     .targetLongitude(resultDocumentDto.getLongitude())
-                    .distance(resultDocumentDto.getDistance())
+                    .distance(resultDocumentDto.getDistance()*0.001)
                     .build())
             .limit(MAX_SEARCH_COUNT)
             .collect(Collectors.toList());
