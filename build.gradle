@@ -1,7 +1,7 @@
 plugins {
     id 'groovy' // groovy 지원
     id 'java'
-    id 'org.springframework.boot' version '3.2.5'
+    id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -40,6 +40,10 @@ dependencies {
 
     //런타임에 클래스 기반 spock mock을 만들기 위해서 필요
     testImplementation('net.bytebuddy:byte-buddy:1.14.11')
+
+    //handlebars
+
+    implementation ('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.4')
 
 
     //testcontainers

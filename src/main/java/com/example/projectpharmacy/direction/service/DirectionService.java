@@ -1,9 +1,9 @@
-package com.example.projectpharmacy.pharmacy.direction.service;
+package com.example.projectpharmacy.direction.service;
 
 import com.example.projectpharmacy.api.dto.DocumentDto;
 import com.example.projectpharmacy.api.service.KakaoCategorySearchService;
-import com.example.projectpharmacy.pharmacy.direction.entity.Direction;
-import com.example.projectpharmacy.pharmacy.direction.repository.DirectionRepository;
+import com.example.projectpharmacy.direction.entity.Direction;
+import com.example.projectpharmacy.direction.repository.DirectionRepository;
 import com.example.projectpharmacy.pharmacy.service.PharmacySearchService;
 import java.util.Collections;
 import java.util.Comparator;
