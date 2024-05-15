@@ -58,3 +58,22 @@ spring:
   config:
     activate:
       on-profile: prod
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://pharmacy-recommendation-database:3306/pharmacy-recommendation
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  data:
+    redis:
+      host: pharmacy-recommendation-redis # 도커 내부에서 컨테이너 서비스 명으로 통신을하게 됨. 네트워크 확인
+      port: 6379
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+pharmacy:
+  recommendation:
+    base:
+      url: http://15.165.139.91:8080/dir/
+
