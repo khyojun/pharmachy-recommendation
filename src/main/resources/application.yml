@@ -75,5 +75,5 @@ spring:
 pharmacy:
   recommendation:
     base:
-      url: http://15.165.139.91:8080/dir/
+      url: http://15.165.139.91/dir/
 
