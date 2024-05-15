@@ -1,6 +1,8 @@
-package com.example.projectpharmacy.pharmacy.direction.service
+package com.example.projectpharmacy.direction.service
 
 import com.example.projectpharmacy.api.dto.DocumentDto
+import com.example.projectpharmacy.api.service.KakaoCategorySearchService
+import com.example.projectpharmacy.direction.repository.DirectionRepository
 import com.example.projectpharmacy.direction.service.DirectionService
 import com.example.projectpharmacy.pharmacy.PharmacyDto
 import com.example.projectpharmacy.pharmacy.service.PharmacySearchService
@@ -10,7 +12,12 @@ class DirectionServiceTest extends Specification {
 
     // mocking
     private PharmacySearchService pharmacySearchService = Mock()
-    private DirectionService directionService = new DirectionService(pharmacySearchService)
+    private DirectionRepository directionRepository = Mock()
+    private KakaoCategorySearchService kakaoCategorySearchService = Mock()
+    private Base62Service base62Service = Mock()
+    private DirectionService directionService = new DirectionService(pharmacySearchService
+    , directionRepository, kakaoCategorySearchService, base62Service
+    )
 
     private List<PharmacyDto> pharmacyList
 

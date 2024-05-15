@@ -18,6 +18,7 @@ public class KakaoUriBuilderService {
 
         URI uri = uriBuilder.build().encode().toUri(); // encoding 작업을 통해 한글 공백등이 잘 되게 해줘야함.
 
+        // restTemplate에서 String으로 만약 던지면 인코딩을 또 함. 그렇기 때문에 uri 로 던져주는게 좋음.
         log.info("[KakaoUriBuilderService buildUriByAddressSearch] address : {}, uri : {}", address, uri);
 
         return uri;
